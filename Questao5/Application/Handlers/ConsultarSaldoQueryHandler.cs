@@ -30,18 +30,14 @@ namespace Questao5.Application.Handlers
             if (!conta.Ativo)
                 throw new BusinessException("Conta corrente inativa", ErrosNegocio.ContaInativa);
 
-            var movimentos = await _movimentoQuery.GetAllByContaIdAsync(request.IdContaCorrente);
-
-            var totalCreditos = movimentos?.Where(m => m.TipoMovimento == TipoMovimento.Credito)?.Sum(m => m.Valor) ?? 0;
-            var totalDebitos = movimentos?.Where(m => m.TipoMovimento == TipoMovimento.Debito)?.Sum(m => m.Valor) ?? 0;
-            var saldo = totalCreditos - totalDebitos;
+            conta.Movimentos = await _movimentoQuery.GetAllByContaIdAsync(request.IdContaCorrente);
 
             return new ConsultarSaldoResponse
             {
                 Numero = conta.Numero,
                 Nome = conta.Nome,
                 DataResposta = DateTime.Now,
-                Saldo = saldo
+                Saldo = conta.Saldo()
             };
         }
     }
