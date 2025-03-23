@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Questao5.Application.Queries.Requests;
 using Questao5.Application.Queries.Responses;
 using Questao5.Domain.Language;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Questao5.Infrastructure.Services.Controllers
 {
@@ -18,8 +19,12 @@ namespace Questao5.Infrastructure.Services.Controllers
         }
 
         [HttpGet("{id}/saldo")]
-        [ProducesResponseType(typeof(ConsultarSaldoResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErroResponse), StatusCodes.Status400BadRequest)]
+        [SwaggerOperation(
+            Summary = "Consulta o saldo da conta corrente",
+            Description = "Retorna o saldo atual da conta, considerando todos os movimentos realizados até o momento."
+        )]
+        [SwaggerResponse(200, "Consulta realizada com sucesso", typeof(ConsultarSaldoResponse))]
+        [SwaggerResponse(400, "Conta inválida ou inativa", typeof(ErroResponse))]
         public async Task<IActionResult> ConsultarSaldo(string id)
         {
             try
