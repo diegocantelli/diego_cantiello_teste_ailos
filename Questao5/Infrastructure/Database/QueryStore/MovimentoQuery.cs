@@ -1,10 +1,11 @@
 ﻿using Dapper;
 using Questao5.Domain.Entities;
+using Questao5.Domain.Interfaces.Query;
 using Questao5.Infrastructure.Sqlite;
 
 namespace Questao5.Infrastructure.Database.QueryStore
 {
-    public class MovimentoQuery
+    public class MovimentoQuery : IMovimentoQuery
     {
         private readonly DatabaseConfig _db;
 

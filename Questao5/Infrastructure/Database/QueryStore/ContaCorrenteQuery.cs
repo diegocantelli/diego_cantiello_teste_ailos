@@ -1,12 +1,15 @@
 ﻿using Dapper;
 using Questao5.Domain.Entities;
+using Questao5.Domain.Interfaces.Query;
 using Questao5.Infrastructure.Sqlite;
 
 namespace Questao5.Infrastructure.Database.QueryStore
 {
-    public class ContaCorrenteQuery
+    public class ContaCorrenteQuery : IContaCorrenteQuery
     {
         private readonly DatabaseConfig _dbConfig;
+
+        //public ContaCorrenteQuery(){}
 
         public ContaCorrenteQuery(DatabaseConfig dbConfig)
         {

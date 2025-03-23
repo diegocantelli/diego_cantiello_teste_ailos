@@ -2,24 +2,23 @@
 using Questao5.Application.Commands.Requests;
 using Questao5.Application.Handlers.Validators;
 using Questao5.Domain.Entities;
-using Questao5.Domain.Language;
-using Questao5.Infrastructure.Database.CommandStore;
-using Questao5.Infrastructure.Database.QueryStore;
+using Questao5.Domain.Interfaces.Command;
+using Questao5.Domain.Interfaces.Query;
 
 namespace Questao5.Application.Handlers
 {
     public class CriarMovimentoCommandHandler : IRequestHandler<CriarMovimentoCommand, string>
     {
-        private readonly ContaCorrenteQuery _contaQuery;
-        private readonly MovimentoCommand _movimentoCommand;
-        private readonly IdempotenciaCommand _idempotenciaCommand;
-        private readonly IdempotenciaQuery _idempotenciaQuery;
+        private readonly IContaCorrenteQuery _contaQuery;
+        private readonly IMovimentoCommand _movimentoCommand;
+        private readonly IIdempotenciaCommand _idempotenciaCommand;
+        private readonly IIdempotenciaQuery _idempotenciaQuery;
 
         public CriarMovimentoCommandHandler(
-            ContaCorrenteQuery contaQuery,
-            MovimentoCommand movimentoCommand,
-            IdempotenciaCommand idempotenciaCommand,
-            IdempotenciaQuery idempotenciaQuery)
+            IContaCorrenteQuery contaQuery,
+            IMovimentoCommand movimentoCommand,
+            IIdempotenciaCommand idempotenciaCommand,
+            IIdempotenciaQuery idempotenciaQuery)
         {
             _contaQuery = contaQuery;
             _movimentoCommand = movimentoCommand;
