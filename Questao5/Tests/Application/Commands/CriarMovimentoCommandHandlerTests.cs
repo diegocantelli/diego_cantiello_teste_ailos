@@ -29,6 +29,41 @@ namespace Questao5.Tests.Application.Commands
         }
 
         [Fact]
+        public async Task Deve_Criar_Novo_Movimento_Quando_Requisicao_Valida()
+        {
+            var command = new CriarMovimentoCommand
+            {
+                IdRequisicao = "REQ-FIRST",
+                IdContaCorrente = "123-CONTA",
+                Valor = 150.75m,
+                TipoMovimento = "C"
+            };
+
+            var contaCorrente = new ContaCorrente
+            {
+                IdContaCorrente = command.IdContaCorrente,
+                Numero = 123,
+                Nome = "Usuário Teste",
+                Ativo = true
+            };
+
+            _idempotenciaQuery.GetByChaveAsync(command.IdRequisicao).Returns((Idempotencia?)null);
+            _contaQuery.GetByIdAsync(command.IdContaCorrente).Returns(contaCorrente);
+
+            string? idIdempotenciaCriado = null;
+            _movimentoCommand.When(x => x.InserirAsync(Arg.Do<Movimento>(m => idIdempotenciaCriado = m.IdMovimento)))
+                             .Do(_ => { });
+
+            _idempotenciaCommand.When(x => x.InserirAsync(Arg.Any<Idempotencia>()))
+                                .Do(_ => { });
+
+            var result = await _handler.Handle(command, CancellationToken.None);
+
+            result.Should().NotBeNullOrEmpty();
+            result.Should().Be(idIdempotenciaCriado);
+        }
+
+        [Fact]
         public async Task Deve_Retornar_IdIdempotente_Quando_Movimento_Ja_Criado()
         {
             var command = new CriarMovimentoCommand
@@ -52,7 +87,7 @@ namespace Questao5.Tests.Application.Commands
         }
 
         [Fact]
-        public async Task Should_Throw_When_ContaCorrente_Not_Found()
+        public async Task Deve_Lancar_Excecao_Quando_Conta_Nao_Encontrada()
         {
             var command = new CriarMovimentoCommand
             {
