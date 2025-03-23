@@ -1,4 +1,5 @@
 using MediatR;
+using Questao5.Infrastructure.Database.CommandStore;
 using Questao5.Infrastructure.Database.QueryStore;
 using Questao5.Infrastructure.Sqlite;
 using System.Reflection;
@@ -17,6 +18,9 @@ builder.Services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
 builder.Services.AddScoped<ContaCorrenteQuery>();
 builder.Services.AddScoped<MovimentoQuery>();
 builder.Services.AddScoped<IdempotenciaQuery>();
+
+builder.Services.AddScoped<MovimentoCommand>();
+builder.Services.AddScoped<IdempotenciaCommand>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

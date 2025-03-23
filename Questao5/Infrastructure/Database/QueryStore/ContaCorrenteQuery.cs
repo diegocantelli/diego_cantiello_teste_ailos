@@ -26,5 +26,19 @@ namespace Questao5.Infrastructure.Database.QueryStore
 
             return await connection.QueryFirstOrDefaultAsync<ContaCorrente>(sql, new { numero });
         }
+
+        public async Task<ContaCorrente?> GetByIdAsync(string id)
+        {
+            using var connection = _dbConfig.CreateConnection();
+
+            var sql = @"SELECT idcontacorrente AS IdContaCorrente,
+                               numero,
+                               nome,
+                               ativo
+                        FROM contacorrente
+                        WHERE idcontacorrente = @id";
+
+            return await connection.QueryFirstOrDefaultAsync<ContaCorrente>(sql, new { id });
+        }
     }
 }
