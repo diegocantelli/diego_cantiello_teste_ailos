@@ -32,8 +32,8 @@ namespace Questao5.Application.Handlers
 
             var movimentos = await _movimentoQuery.GetAllByContaIdAsync(request.IdContaCorrente);
 
-            var totalCreditos = movimentos.Where(m => m.TipoMovimento == TipoMovimento.Credito).Sum(m => m.Valor);
-            var totalDebitos = movimentos.Where(m => m.TipoMovimento == TipoMovimento.Debito).Sum(m => m.Valor);
+            var totalCreditos = movimentos?.Where(m => m.TipoMovimento == TipoMovimento.Credito)?.Sum(m => m.Valor) ?? 0;
+            var totalDebitos = movimentos?.Where(m => m.TipoMovimento == TipoMovimento.Debito)?.Sum(m => m.Valor) ?? 0;
             var saldo = totalCreditos - totalDebitos;
 
             return new ConsultarSaldoResponse
