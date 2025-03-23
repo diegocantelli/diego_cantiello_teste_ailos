@@ -6,7 +6,7 @@ namespace Questao5.Application.Handlers.Validators
 {
     public static class MovimentoValidator
     {
-        public static void ValidarMovimento(ContaCorrente? conta, decimal valor, string tipo)
+        public static void ValidarMovimento(ContaCorrente? conta, decimal valor, char tipo)
         {
             if (conta == null)
                 throw new BusinessException("Conta corrente inválida", ErrosNegocio.ContaInvalida);

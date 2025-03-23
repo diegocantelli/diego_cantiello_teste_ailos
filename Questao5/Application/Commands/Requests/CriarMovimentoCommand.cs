@@ -7,6 +7,6 @@ namespace Questao5.Application.Commands.Requests
         public string IdRequisicao { get; set; } = default!;
         public string IdContaCorrente { get; set; } = default!;
         public decimal Valor { get; set; }
-        public string TipoMovimento { get; set; } = default!;
+        public char TipoMovimento { get; set; } = default!;
     }
 }

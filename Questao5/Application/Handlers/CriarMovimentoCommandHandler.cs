@@ -41,7 +41,7 @@ namespace Questao5.Application.Handlers
                 IdMovimento = Guid.NewGuid().ToString().ToUpper(),
                 IdContaCorrente = request.IdContaCorrente,
                 DataMovimento = DateTime.Now.ToString("dd/MM/yyyy"),
-                TipoMovimento = request.TipoMovimento[0],
+                TipoMovimento = request.TipoMovimento,
                 Valor = request.Valor
             };
 

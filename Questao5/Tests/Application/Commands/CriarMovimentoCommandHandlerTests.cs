@@ -36,7 +36,7 @@ namespace Questao5.Tests.Application.Commands
                 IdRequisicao = "REQ-FIRST",
                 IdContaCorrente = "123-CONTA",
                 Valor = 150.75m,
-                TipoMovimento = "C"
+                TipoMovimento = 'C'
             };
 
             var contaCorrente = new ContaCorrente
@@ -71,7 +71,7 @@ namespace Questao5.Tests.Application.Commands
                 IdRequisicao = "REQ123",
                 IdContaCorrente = "ID1",
                 Valor = 100,
-                TipoMovimento = "C"
+                TipoMovimento = 'C'
             };
 
             _idempotenciaQuery.GetByChaveAsync(command.IdRequisicao)
@@ -94,7 +94,7 @@ namespace Questao5.Tests.Application.Commands
                 IdRequisicao = "REQ456",
                 IdContaCorrente = "NAO_EXISTE",
                 Valor = 100,
-                TipoMovimento = "D"
+                TipoMovimento = 'D'
             };
 
             _idempotenciaQuery.GetByChaveAsync(command.IdRequisicao).Returns((Idempotencia?)null);
